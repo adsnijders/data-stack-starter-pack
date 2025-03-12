@@ -1,4 +1,5 @@
 webshop:
+  target: dev
   outputs:
     dev:
       dbname: webshop
@@ -9,4 +10,13 @@ webshop:
       port: 5432
       threads: 1
       type: postgres
-  target: dev
+    prod:
+      dbname: webshop
+      schema: public
+      host: localhost
+      user: admin
+      pass: admin
+      port: 2345
+      threads: 1
+      type: postgres
+ 
