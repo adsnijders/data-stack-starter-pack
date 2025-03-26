@@ -3,20 +3,53 @@ webshop:
   outputs:
     dev:
       dbname: webshop
-      schema: public
+      schema: "{{ env_var('DBT_DEV_SCHEMA', 'dev') }}"
       host: localhost
       user: admin
       pass: admin
       port: 5432
       threads: 1
       type: postgres
+    
+    sample-dev:
+      dbname: webshop
+      schema: raw
+      host: localhost
+      user: admin
+      pass: admin
+      port: 5432
+      threads: 1
+      type: postgres
+    
+    test:
+      dbname: webshop
+      schema: "{{ env_var('GIT_SHA', 'test') }}"
+      host: localhost
+      user: admin
+      pass: admin
+      port: 5678
+      threads: 1
+      type: postgres
+    
+    sample-test:
+      dbname: webshop
+      schema: raw
+      host: localhost
+      user: admin
+      pass: admin
+      port: 5678
+      threads: 1
+      type: postgres
+    
     prod:
       dbname: webshop
-      schema: public
+      schema: not_used
       host: localhost
       user: admin
       pass: admin
       port: 2345
       threads: 1
       type: postgres
+
+
  
