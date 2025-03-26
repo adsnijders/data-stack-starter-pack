@@ -55,6 +55,7 @@ tasks:
   reboot/gha_runner:
     desc: "Destroy GitHub Actions runner"
     cmds:
+      - chmod -R 777 ./infra/gha_runner/*
       - docker compose down gha_runner
       - rm -rf ./infra/gh_runner/data
       - rm -rf ./infra/gha_runner/tmp
