@@ -7,12 +7,12 @@ on:
 
 jobs:
   CI_jobs:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
-      # GIT_SHA: ${{ github.event.pull_request.head.sha }}
+      GIT_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,3 +28,13 @@ jobs:
 
       - name: Linting
         uses: astral-sh/ruff-action@v3
+
+      - name: dbt Build
+        run: dbt build --select "state:modified+" --target test
+
+      - name: dbt Docs
+        run: dbt docs generate
+
+      
+
+
