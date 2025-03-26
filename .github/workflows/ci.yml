@@ -24,16 +24,16 @@ jobs:
         run: uv python install
 
       - name: Install dependencies
-        run: uv sync --group ci
+        run: uv sync --group ci --no-dev
 
       - name: Linting
         uses: astral-sh/ruff-action@v3
 
       - name: dbt Build
-        run: dbt build --select "state:modified+" --target test
+        run: uv run dbt build --select "state:modified+" --target test
 
       - name: dbt Docs
-        run: dbt docs generate
+        run: uv run dbt docs generate
 
       
 
