@@ -12,7 +12,7 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       MINIO_ACCESS_KEY: ${{ secrets.POSTRES_DB }}
-      GIT_SHA:
+      GIT_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,5 +26,5 @@ jobs:
       - name: Install dependencies
         run: uv sync --group ci
 
-      - name: Liting
+      - name: Linting
         uses: astral-sh/ruff-action@v3
