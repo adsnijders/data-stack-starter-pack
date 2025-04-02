@@ -24,7 +24,7 @@ webshop:
     test:
       dbname: webshop
       schema: "{{ env_var('GIT_SHA', 'test') }}"
-      host: test_progres
+      host: test_postgres
       user: admin
       pass: admin
       port: 5432
