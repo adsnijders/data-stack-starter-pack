@@ -35,7 +35,7 @@ jobs:
         run: uv run dbt deps 
 
       - name: Run dbt build
-        run: uv run dbt build --select "state:modified+" --target test 
+        run: uv run dbt build --select "state:modified+" --target test --state $DBT_PROJECT_DIR/target
 
       - name: Generate dbt docs
         run: uv run dbt docs generate
