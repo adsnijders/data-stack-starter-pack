@@ -38,7 +38,7 @@ jobs:
         run: uv run dbt build --select "state:modified+" --target test --state ./target/
 
       - name: Generate dbt docs
-        run: uv run dbt docs generate --profile test
+        run: uv run dbt docs generate --target test
 
       
 
