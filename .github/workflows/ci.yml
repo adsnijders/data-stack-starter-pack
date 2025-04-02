@@ -34,19 +34,23 @@ jobs:
       - name: Install dbt dependencies
         run: uv run dbt deps 
 
-      - name: Restore or Generate Manifest
+      - name: Restore existing manifest (if applicable)
         run: |
           mkdir -p ./dbt/webshop/target
           if [ -f /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ]; then
-              echo "Found existing manifest.json. Moving it to target/"
+              echo "Found existing manifest.json. Moving it to ./dbt/webshop/target/"
               cp /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ./dbt/webshop/target/manifest.json
-          else
-              echo "No existing $GIT_PR_NUMBER_manifest.json found. Running dbt compile..."
-              uv run dbt compile --target test
           fi
 
       - name: Run dbt build
-        run: uv run dbt build --select "state:modified+" --target test --state ./dbt/webshop/target/
+        run: |
+          if [ -z uv run dbt ls --select "state:modified+" ]; then
+            echo "No changes detected. Running full build."
+            uv run dbt build --target test
+          else
+            echo "Changes detected. Running incremental build."
+            uv run dbt build --select "state:modified+" --target test --state ./dbt/webshop/target/
+          fi
 
       - name: Generate dbt docs
         run: uv run dbt docs generate --target test
