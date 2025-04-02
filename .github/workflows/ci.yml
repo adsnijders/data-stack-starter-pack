@@ -13,8 +13,8 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
       GIT_PR_NUMBER: ${{ github.event.pull_request.number }}
-      DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }} 
-      DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
+      DBT_PROJECT_DIR: ./dbt/webshop
+      DBT_PROFILES_DIR: ./dbt/webshop
     steps:
       - name: Checkout
         uses: actions/checkout@v4
