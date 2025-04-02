@@ -13,6 +13,7 @@ jobs:
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
       GIT_SHA: ${{ github.event.pull_request.head.sha }}
+      DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,11 +31,13 @@ jobs:
         uses: astral-sh/ruff-action@v3
 
       - name: Install dbt dependencies
-        run: uv run dbt deps 
+        run: |
+          cd $DBT_PROJECT_DIR 
+          uv run dbt deps 
 
       - name: Run dbt build
         run: |
-          cd ./dbt/webshop/
+          cd $DBT_PROJECT_DIR
           uv run dbt build --select "state:modified+" --target test
 
       - name: Generate dbt docs
