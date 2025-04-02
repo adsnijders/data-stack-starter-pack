@@ -46,7 +46,7 @@ jobs:
           fi
 
       - name: Run dbt build
-        run: uv run dbt build --select "state:modified+" --target test --state ./target/
+        run: uv run dbt build --select "state:modified+" --target test --state .dbt/webshop/target/
 
       - name: Generate dbt docs
         run: uv run dbt docs generate --target test
