@@ -30,7 +30,7 @@ jobs:
         uses: astral-sh/ruff-action@v3
 
       - name: dbt Build
-        run: uv run dbt build --select "state:modified+" --target test --profiles-dir /dbt/webshop/
+        run: uv run dbt build --select "state:modified+" --target test --profiles-dir /Users/adsnijders/Documents/trainings/6_data_analytics/data-stack-starter-pack/dbt/webshop/
 
       - name: dbt Docs
         run: uv run dbt docs generate
