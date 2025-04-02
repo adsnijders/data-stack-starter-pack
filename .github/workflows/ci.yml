@@ -38,7 +38,7 @@ jobs:
         run: |
           if [ -f /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ]; then
               echo "Found existing manifest.json. Moving it to target/"
-              cp /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json .dbt/webshop/target/manifest.json
+              cp /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ./dbt/webshop/target/manifest.json
           else
               echo "No existing $GIT_PR_NUMBER_manifest.json found. Running dbt compile..."
               uv run dbt compile --target test
