@@ -36,7 +36,7 @@ jobs:
 
       - name: Restore or Generate Manifest
         run: |
-          mkdir -p ./dbt/webshop/target/manifest.json
+          mkdir -p ./dbt/webshop/target
           if [ -f /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ]; then
               echo "Found existing manifest.json. Moving it to target/"
               cp /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json ./dbt/webshop/target/manifest.json
