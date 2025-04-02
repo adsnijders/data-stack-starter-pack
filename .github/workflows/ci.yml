@@ -31,14 +31,10 @@ jobs:
         uses: astral-sh/ruff-action@v3
 
       - name: Install dbt dependencies
-        run: |
-          cd $DBT_PROJECT_DIR 
-          uv run dbt deps 
+        run: uv run dbt deps 
 
       - name: Run dbt build
-        run: |
-          cd $DBT_PROJECT_DIR
-          uv run dbt build --select "state:modified+" --target test
+        run: uv run dbt build --select "state:modified+" --target test
 
       - name: Generate dbt docs
         run: uv run dbt docs generate
