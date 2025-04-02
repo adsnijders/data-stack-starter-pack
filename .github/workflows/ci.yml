@@ -14,7 +14,7 @@ jobs:
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
       GIT_SHA: ${{ github.event.pull_request.head.sha }}
       DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }}
-      DBT_PROFILES_DIR: $${{ secrets.DBT_PROFILES_DIR }}
+      DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
