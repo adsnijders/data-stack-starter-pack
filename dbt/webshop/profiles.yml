@@ -23,7 +23,7 @@ webshop:
     
     test:
       dbname: webshop
-      schema: "{{ env_var('GIT_SHA', 'test') }}"
+      schema: "{{ env_var('GIT_PR_NUMBER', 'test') }}"
       host: test_postgres
       user: admin
       pass: admin

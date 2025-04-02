@@ -12,7 +12,7 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
-      GIT_SHA: ${{ github.event.pull_request.number }}
+      GIT_PR_NUMBER: ${{ github.event.pull_request.number }}
       DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }} 
       DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
     steps:
@@ -34,6 +34,16 @@ jobs:
       - name: Install dbt dependencies
         run: uv run dbt deps 
 
+      - name: Restore or Generate Manifest
+        run: |
+          if [ -f "/runner/data/artifacts/$GIT_PR_NUMBER_manifest.json" ]; then
+              echo "Found existing $PR_NUMBER_manifest.json. Moving it to target/"
+              mv "/runner/data/artifacts/$GIT_PR_NUMBER_manifest.json" "./dbt/webshop/target/manifest.json"
+          else
+              echo "No existing $GIT_PR_NUMBER_manifest.json found. Running dbt compile..."
+              uv run dbt compile --target test
+          fi
+
       - name: Run dbt build
         run: uv run dbt build --select "state:modified+" --target test --state ./target/
 
@@ -41,7 +51,7 @@ jobs:
         run: uv run dbt docs generate --target test
 
       - name: Safe manifest
-        run: cp ./dbt/webshop/target/manifest.json /runner/data/artifacts/ci_manifest.json
+        run: cp ./dbt/webshop/target/manifest.json /runner/data/artifacts/$GIT_PR_NUMBER_manifest.json
 
       
 
