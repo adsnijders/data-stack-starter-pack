@@ -41,7 +41,7 @@ jobs:
         run: uv run dbt docs generate --target test
 
       - name: Safe manifest
-        run: cp ./dbt/webshop/target/manifest.json ./artifacts/ci_manifest.json
+        run: cp ./dbt/webshop/target/manifest.json /runner/data/artifacts/ci_manifest.json
 
       
 

@@ -72,4 +72,4 @@ services:
       - ./infra/gha_runner/tmp:/tmp/runner
       - ./infra/gha_runner/data:/runner/data
       - ./logs/gha_runner:/runner/data/_diag
-      - ./infra/gha_runner/artifacts:/runner/artifacts
+      - ./infra/gha_runner/artifacts:/runner/data/artifacts
