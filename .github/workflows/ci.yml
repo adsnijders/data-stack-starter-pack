@@ -12,8 +12,8 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_DB: ${{ secrets.POSTRES_DB }}
-      GIT_SHA: ${{ github.event.pull_request.head.sha }}
-      DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }}
+      GIT_SHA: ${{ github.event.pull_request.number }}
+      DBT_PROJECT_DIR: ${{ secrets.DBT_PROJECT_DIR }} 
       DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
     steps:
       - name: Checkout
@@ -39,6 +39,9 @@ jobs:
 
       - name: Generate dbt docs
         run: uv run dbt docs generate --target test
+
+      - name: Safe manifest
+        run: cp ./target/manifest.json ../../infra/gha_runner/artifacts/ci_manifest.json
 
       
 
