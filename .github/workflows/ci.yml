@@ -23,18 +23,21 @@ jobs:
       - name: Install Python
         run: uv python install
 
-      - name: Install dependencies
+      - name: Install project dependencies
         run: uv sync --group ci --no-dev
 
-      - name: Linting
+      - name: Apply linting
         uses: astral-sh/ruff-action@v3
 
-      - name: dbt Build
+      - name: Install dbt dependencies
+        run: uv run dbt deps 
+
+      - name: Run dbt build
         run: |
           cd ./dbt/webshop/
           uv run dbt build --select "state:modified+" --target test
 
-      - name: dbt Docs
+      - name: Generate dbt docs
         run: uv run dbt docs generate
 
       
