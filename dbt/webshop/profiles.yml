@@ -24,10 +24,10 @@ webshop:
     test:
       dbname: webshop
       schema: "{{ env_var('GIT_SHA', 'test') }}"
-      host: localhost
+      host: test_progres
       user: admin
       pass: admin
-      port: 5678
+      port: 5432
       threads: 1
       type: postgres
     
