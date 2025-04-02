@@ -44,13 +44,14 @@ jobs:
 
       - name: Run dbt build
         run: |
-          if [ -z uv run dbt ls --select "state:modified+" --state ./target ]; then
-            echo "No changes detected. Running full build."
-            uv run dbt build --target test
-          else
-            echo "Changes detected. Running incremental build."
-            uv run dbt build --select "state:modified+" --target test --state ./target
-          fi
+          # if [ -z uv run dbt ls --select "state:modified+" --state ./target ]; then
+          #   echo "No changes detected. Running full build."
+          #   uv run dbt build --target test
+          # else
+          #   echo "Changes detected. Running incremental build."
+          #   uv run dbt build --select "state:modified+" --target test --state ./target
+          # fi
+          uv run dbt build --target test
 
       - name: Generate dbt docs
         run: uv run dbt docs generate --target test
